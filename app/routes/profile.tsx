@@ -1,5 +1,5 @@
 import type { ActionFunction, LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
-import { json } from "@remix-run/react";
+import { json, useLoaderData } from "@remix-run/react";
 import { ProfilePage } from "~/pages";
 
 import { PROFILE_DATA } from "~/utils/demo";
@@ -25,7 +25,9 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 };
 
 export default function Profile() {
+  const { response } = useLoaderData<typeof loader>();
+
   return (
-    <ProfilePage />
+    <ProfilePage {...response} />
   );
 };
