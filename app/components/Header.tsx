@@ -11,17 +11,17 @@ export const Header = () => {
             </Link>
 
             <div className="flex flex-row gap-8 my-auto">
-              <Link to="/" className="text-white font-medium text-base uppercase">
+              <Link to="/" className="text-white font-medium text-base uppercase tracking-widest">
                 Home
               </Link>
 
-              <Link to="/profile" className="text-white font-medium text-base uppercase">
+              <Link to="/profile" className="text-white font-medium text-base uppercase tracking-widest">
                 Profile
               </Link>
             </div>
           </div>
 
-          <Link to="/" className="text-white font-medium text-base my-auto uppercase">
+          <Link to="/" className="text-white font-medium text-base my-auto uppercase tracking-widest">
             Sign In
           </Link>
         </div>
