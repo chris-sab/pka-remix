@@ -1,6 +1,8 @@
 import { Form } from "@remix-run/react";
+import { useState } from "react";
 import { useAccount, useBalance } from "wagmi";
 import { ActivityCard } from "~/components/Cards";
+import { ValidTokenAddress } from "~/utils/helper";
 
 type ActivityType = {
   id: string | number;
@@ -16,6 +18,13 @@ type ProfileType = {
   activity: ActivityType[];
 };
 
+type BalanceType = {
+  decimals: number;
+  formatted: string;
+  symbol: string;
+  value: bigint;
+};
+
 export const ProfilePage = ({
   username,
   profile,
@@ -23,13 +32,20 @@ export const ProfilePage = ({
   phone,
   activity
 }: ProfileType) => {
-  const tokenAddress = '0x05049E822f3b978ceD140C9A8f2B4d158572AF42';
-
   const { address } = useAccount();
-  const { data, refetch } = useBalance({
-    address: address,
-    token: tokenAddress
-  });
+  const token = ValidTokenAddress(process.env.TOKEN_ADDRESS);
+  const [balance, setBalance] = useState({} as BalanceType);
+
+  if (token) {
+    const response = useBalance({
+      address: address,
+      token: `0x${token}`
+    });
+
+    if (response && response.data) {
+      setBalance(response.data);
+    }
+  }
 
   return (
     <main className="flex flex-col items-center justify-between min-h-[100vh] bg-white">
@@ -153,9 +169,15 @@ export const ProfilePage = ({
                   Ethereum Wallet Balance
                 </div>
 
-                <div className="text-sm font-light leading-6 text-gray-900">
-                  {data?.value.toString()} {data?.symbol}
-                </div>
+                {balance && balance.value && balance.symbol ?
+                  <div className="text-sm font-light leading-6 text-gray-900">
+                    {balance.value.toString()} {balance.symbol}
+                  </div>
+                  :
+                  <div className="text-sm font-light leading-6 text-gray-900">
+                    N/A
+                  </div>
+                }
               </div>
             </div>
           </div>

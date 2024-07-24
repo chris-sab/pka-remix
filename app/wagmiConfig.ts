@@ -3,7 +3,9 @@ import { http, createConfig } from 'wagmi'
 import { base, mainnet } from 'wagmi/chains'
 import { injected, metaMask, safe, walletConnect } from 'wagmi/connectors'
 
-const projectId = 'WALLETCONNECT_PROJECT_ID';
+const projectId = process.env.WALLET_PROJECT_ID || '1FENE334FXPP23DXAMA';
+const metaName = process.env.META_DATA_NAME || 'My MetaMask APP';
+const metaUrl = process.env.META_URL || 'https://mymetamaskdapp.com';
 
 export const config = createConfig({
   chains: [mainnet, base],
@@ -12,8 +14,8 @@ export const config = createConfig({
     walletConnect({ projectId }),
     metaMask({
       dappMetadata: {
-        name: "My MetaMask App",
-        url: "https://mymetamaskdapp.com"
+        name: metaName,
+        url: metaUrl
       }
     }),
     safe(),
