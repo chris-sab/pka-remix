@@ -1,6 +1,15 @@
 import { Form } from "@remix-run/react";
+import { useAccount, useBalance } from "wagmi";
 
 export const ProfilePage = () => {
+  const tokenAddress = '0x05049E822f3b978ceD140C9A8f2B4d158572AF42';
+
+  const { address } = useAccount();
+  const { data, refetch } = useBalance({
+    address: address,
+    token: tokenAddress
+  });
+
   return (
     <main className="flex flex-col items-center justify-between min-h-[100vh] bg-white">
       <section className="w-full max-w-full lg:max-w-[1024px] xl:max-w-[1280px] 2xl:max-w-[1440px] px-5 xl:px-0">
@@ -119,7 +128,7 @@ export const ProfilePage = () => {
                 </div>
 
                 <div className="text-sm font-light leading-6 text-gray-900">
-                  123SBCE233DLDEF35262DVEGGEWSXXEL
+                  {data?.value.toString()} {data?.symbol}
                 </div>
               </div>
             </div>

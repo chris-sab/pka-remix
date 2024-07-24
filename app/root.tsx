@@ -8,6 +8,9 @@ import {
 import "./tailwind.css";
 
 import { Header, Footer } from "./components";
+import { config, queryClient } from "./wagmiConfig";
+import { WagmiProvider } from "wagmi";
+import { QueryClientProvider } from "@tanstack/react-query";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -32,5 +35,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <WagmiProvider config={config}>
+        <Outlet />
+      </WagmiProvider>
+    </QueryClientProvider>
+  );
 }
