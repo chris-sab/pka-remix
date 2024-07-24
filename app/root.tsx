@@ -20,7 +20,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <Header />
-        {children}
+        <div className="py-10">
+          {children}
+        </div>
         <Footer />
         <ScrollRestoration />
         <Scripts />
