@@ -3,10 +3,11 @@ import { ProfileState } from "./types";
 
 export const initialState: ProfileState = {
   profile: {
-    username: localStorage.getItem("username") ?? null,
-    profile: localStorage.getItem("profile") ?? null,
-    email: localStorage.getItem("email") ?? null,
-    phone: localStorage.getItem("phone") ?? null,
+    username: null,
+    profile: null,
+    email: null,
+    phone: null,
+    activity: null
   },
   loading: false
 };

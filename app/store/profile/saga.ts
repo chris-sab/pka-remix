@@ -24,6 +24,7 @@ function* profileInfo(request: any): Generator<any, void, any> {
           profile: response.profile,
           email: response.email,
           phone: response.phone,
+          activity: response.activity,
         })
       );
     } else {
