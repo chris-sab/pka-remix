@@ -15,7 +15,6 @@ function* profileInfo(request: any): Generator<any, void, any> {
 
     yield put(actions.profileFetch());
     const response: any = yield call(getProfileInfo);
-    yield delay(600);
 
     if (response) {
       yield put(

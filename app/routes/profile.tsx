@@ -1,8 +1,9 @@
-import type { ActionFunction, LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
-import { json, useLoaderData } from "@remix-run/react";
+import type { ActionFunction, MetaFunction } from "@remix-run/node";
+import { json } from "@remix-run/react";
+import { useDispatch } from "react-redux";
+import { actions as profileActions } from "../store/profile/slice";
 import { ProfilePage } from "~/pages";
-
-import { PROFILE_DATA } from "~/utils/demo";
+import { useEffect } from "react";
 
 export const meta: MetaFunction = () => {
   return [
@@ -16,18 +17,14 @@ export const action: ActionFunction = async ({ request }) => {
   return json({ success: true });
 };
 
-export const loader = async ({ request }: LoaderFunctionArgs) => {
-  const response = PROFILE_DATA;
-
-  return json({
-    response
-  });
-};
-
 export default function Profile() {
-  const { response } = useLoaderData<typeof loader>();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(profileActions.profileRequest());
+  }, []);
 
   return (
-    <ProfilePage {...response} />
+    <ProfilePage />
   );
 };

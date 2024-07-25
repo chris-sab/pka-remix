@@ -19,7 +19,7 @@ const profileSlice = createSlice({
     updateProfile(state, action: PayloadAction<any>) {
       state.profile = action.payload;
     },
-    profileRequest(state, action: PayloadAction<any>) {},
+    profileRequest(state) {},
     profileFetch(state) {
       state.loading = true;
     },

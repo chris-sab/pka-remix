@@ -1,21 +1,15 @@
 import { Form } from "@remix-run/react";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { useAccount, useBalance } from "wagmi";
 import { ActivityCard } from "~/components/Cards";
 import { ValidTokenAddress } from "~/utils/helper";
+import { getProfile } from "~/store/profile/selector";
 
 type ActivityType = {
   id: string | number;
   title: string;
   date: Date | string;
-};
-
-type ProfileType = {
-  username: string;
-  profile: string;
-  email: string;
-  phone: string;
-  activity: ActivityType[];
 };
 
 type BalanceType = {
@@ -25,13 +19,8 @@ type BalanceType = {
   value: bigint;
 };
 
-export const ProfilePage = ({
-  username,
-  profile,
-  email,
-  phone,
-  activity
-}: ProfileType) => {
+export const ProfilePage = () => {
+  const profileState = useSelector(getProfile);
   const { address } = useAccount();
   const token = ValidTokenAddress(process.env.TOKEN_ADDRESS);
   const [balance, setBalance] = useState({} as BalanceType);
@@ -60,7 +49,7 @@ export const ProfilePage = ({
             />
 
             <span className="my-auto text-indigo-950 font-bold text-lg">
-              Christopher Saburo
+              {profileState.username}
             </span>
           </div>
 
@@ -80,7 +69,7 @@ export const ProfilePage = ({
                         name="username"
                         type="text"
                         className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        value={username}
+                        value={profileState.username ?? ''}
                       />
                     </div>
                   </div>
@@ -96,7 +85,7 @@ export const ProfilePage = ({
                         name="profile"
                         type="text"
                         className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        value={profile}
+                        value={profileState.profile ?? ''}
                       />
                     </div>
                   </div>
@@ -112,7 +101,7 @@ export const ProfilePage = ({
                         name="email"
                         type="email"
                         className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        value={email}
+                        value={profileState.email ?? ''}
                       />
                     </div>
                   </div>
@@ -128,7 +117,7 @@ export const ProfilePage = ({
                         name="phone"
                         type="text"
                         className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        value={phone}
+                        value={profileState.phone ?? ''}
                       />
                     </div>
                   </div>
@@ -139,7 +128,7 @@ export const ProfilePage = ({
                       Recent Activities
                     </label>
                     <div className="mt-2.5 flex flex-col gap-2">
-                      {activity && activity.map((item: ActivityType) => {
+                      {profileState.activity && profileState.activity.map((item: ActivityType) => {
                         return (
                           <ActivityCard
                             key={crypto.randomUUID()}
