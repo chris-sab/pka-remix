@@ -11,6 +11,8 @@ import { Header, Footer } from "./components";
 import { config, queryClient } from "./wagmiConfig";
 import { WagmiProvider } from "wagmi";
 import { QueryClientProvider } from "@tanstack/react-query";
+import { Provider } from "react-redux";
+import { configureAppStore } from "./store/configureStore";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -32,14 +34,18 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </body>
     </html>
   );
-}
+};
+
+const store = configureAppStore();
 
 export default function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <WagmiProvider config={config}>
-        <Outlet />
-      </WagmiProvider>
-    </QueryClientProvider>
+    <Provider store={store}>
+      <QueryClientProvider client={queryClient}>
+        <WagmiProvider config={config}>
+          <Outlet />
+        </WagmiProvider>
+      </QueryClientProvider>
+    </Provider>
   );
 }
