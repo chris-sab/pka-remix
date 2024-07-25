@@ -2,6 +2,7 @@ import { QueryClient } from '@tanstack/react-query';
 import { http, createConfig } from 'wagmi'
 import { base, mainnet } from 'wagmi/chains'
 import { injected, metaMask, safe, walletConnect } from 'wagmi/connectors'
+import process from 'process';
 
 const projectId = process.env.WALLET_PROJECT_ID || '1FENE334FXPP23DXAMA';
 const metaName = process.env.META_DATA_NAME || 'My MetaMask APP';

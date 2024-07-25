@@ -5,6 +5,7 @@ import { useAccount, useBalance } from "wagmi";
 import { ActivityCard } from "~/components/Cards";
 import { ValidTokenAddress } from "~/utils/helper";
 import { getProfile } from "~/store/profile/selector";
+import process from "process";
 
 type ActivityType = {
   id: string | number;
@@ -44,7 +45,7 @@ export const ProfilePage = () => {
           <div id="profile-header" className="flex flex-row gap-4 my-auto">
             <img
               className="rounded-full h-[100px]"
-              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+              src={profileState.profile ?? ''}
               alt="user"
             />
 
