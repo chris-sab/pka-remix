@@ -4,7 +4,6 @@ import {
   all,
   put,
   takeLatest,
-  delay,
 } from 'redux-saga/effects';
 import { actions } from './slice';
 import { getProfileInfo } from "./api";
@@ -30,12 +29,12 @@ function* profileInfo(request: any): Generator<any, void, any> {
       throw response;
     }
   } catch (error: any) {
-    console.error(error);
+    console.log(error);
   }
 };
 
 export function* profileSaga(): Generator<AllEffect<any>, void, unknown> {
   yield all([
     takeLatest(actions.profileRequest.type, profileInfo)
-  ])
-}
+  ]);
+};

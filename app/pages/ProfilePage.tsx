@@ -1,11 +1,8 @@
 import { Form } from "@remix-run/react";
-import { useState } from "react";
 import { useSelector } from "react-redux";
-import { useAccount, useBalance } from "wagmi";
 import { ActivityCard } from "~/components/Cards";
-import { ValidTokenAddress } from "~/utils/helper";
 import { getProfile } from "~/store/profile/selector";
-import process from "process";
+import { getBalance } from "~/store/balance/selector";
 
 type ActivityType = {
   id: string | number;
@@ -13,29 +10,9 @@ type ActivityType = {
   date: Date | string;
 };
 
-type BalanceType = {
-  decimals: number;
-  formatted: string;
-  symbol: string;
-  value: bigint;
-};
-
 export const ProfilePage = () => {
   const profileState = useSelector(getProfile);
-  const { address } = useAccount();
-  const token = ValidTokenAddress(process.env.TOKEN_ADDRESS);
-  const [balance, setBalance] = useState({} as BalanceType);
-
-  if (token) {
-    const response = useBalance({
-      address: address,
-      token: `0x${token}`
-    });
-
-    if (response && response.data) {
-      setBalance(response.data);
-    }
-  }
+  const balanceState = useSelector(getBalance);
 
   return (
     <main className="flex flex-col items-center justify-between min-h-[100vh] bg-white">
@@ -159,9 +136,9 @@ export const ProfilePage = () => {
                   Ethereum Wallet Balance
                 </div>
 
-                {balance && balance.value && balance.symbol ?
+                {balanceState && balanceState.value && balanceState.symbol ?
                   <div className="text-sm font-light leading-6 text-gray-900">
-                    {balance.value.toString()} {balance.symbol}
+                    {balanceState.value.toString()} {balanceState.symbol}
                   </div>
                   :
                   <div className="text-sm font-light leading-6 text-gray-900">

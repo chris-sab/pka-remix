@@ -1,9 +1,14 @@
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+
 import type { ActionFunction, MetaFunction } from "@remix-run/node";
 import { json } from "@remix-run/react";
-import { useDispatch } from "react-redux";
-import { actions as profileActions } from "../store/profile/slice";
+
 import { ProfilePage } from "~/pages";
-import { useEffect } from "react";
+
+import { actions as profileActions } from "../store/profile/slice";
+import { actions as balanceActions } from "../store/balance/slice";
+
 
 export const meta: MetaFunction = () => {
   return [
@@ -22,6 +27,7 @@ export default function Profile() {
 
   useEffect(() => {
     dispatch(profileActions.profileRequest());
+    dispatch(balanceActions.balanceRequest());
   }, []);
 
   return (
