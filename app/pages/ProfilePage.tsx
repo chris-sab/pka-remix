@@ -45,9 +45,9 @@ export const ProfilePage = () => {
             </span>
           </div>
 
-          <div className="w-full flex flex-row gap-8">
+          <div className="w-full flex flex-col lg:flex-row gap-8">
             {/* Profile Contact Section */}
-            <div id="profile-contact" className="w-3/5">
+            <div id="profile-contact" className="w-full lg:w-3/5">
               <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
                 {/* Username */}
                 <div className="sm:col-span-2">
@@ -166,7 +166,7 @@ export const ProfilePage = () => {
             </div>
 
             {/* Profile Ethereum Section */}
-            <div id="profile-ethereum" className="w-2/5">
+            <div id="profile-ethereum" className="w-full lg:w-2/5">
               <div className="flex flex-col gap-2">
                 <div className="text-sm font-semibold leading-6 text-gray-900">
                   Ethereum Wallet Balance
