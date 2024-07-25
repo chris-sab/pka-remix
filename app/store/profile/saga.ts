@@ -8,7 +8,7 @@ import {
 import { actions } from './slice';
 import { getProfileInfo } from "./api";
 
-function* profileInfo(request: any): Generator<any, void, any> {
+function* loadProfileInfo(request: any): Generator<any, void, any> {
   try {
     const { payload } = request;
 
@@ -35,6 +35,6 @@ function* profileInfo(request: any): Generator<any, void, any> {
 
 export function* profileSaga(): Generator<AllEffect<any>, void, unknown> {
   yield all([
-    takeLatest(actions.profileRequest.type, profileInfo)
+    takeLatest(actions.profileRequest.type, loadProfileInfo)
   ]);
 };
