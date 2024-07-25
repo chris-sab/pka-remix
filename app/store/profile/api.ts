@@ -1,10 +1,12 @@
 import { PROFILE_DATA } from "~/utils/demo";
 import { ProfileType } from "./types";
 
-export const getProfileInfo = async (): Promise<any> => {
-  return await PROFILE_DATA;
+export const getProfileAPI = async (): Promise<any> => {
+  const res = await PROFILE_DATA;
+  return res;
 };
 
-export const updateProfileInfo = async (payload: ProfileType): Promise<any> => {
-  return await payload;
+export const updateProfileAPI = async (payload: ProfileType): Promise<any> => {
+  const res = await payload;
+  return res;
 };

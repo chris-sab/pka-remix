@@ -6,14 +6,12 @@ import {
   takeLatest,
 } from 'redux-saga/effects';
 import { actions } from './slice';
-import { getBalanceInfo } from "./api";
+import { getBalanceAPI } from "./api";
 
-function* balanceInfo(request: any): Generator<any, void, any> {
+function* balanceInfo(): Generator<any, void, any> {
   try {
-    const { payload } = request;
-
     yield put(actions.balanceFetch());
-    const response: any = yield call(getBalanceInfo);
+    const response: any = yield call(getBalanceAPI);
 
     if (response) {
       yield put(
